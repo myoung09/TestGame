@@ -1,3 +1,53 @@
-[gd_scene format=3 uid="uid://cdo77q8evellh"]
+[gd_scene load_steps=6 format=3 uid="uid://cdo77q8evellh"]
+
+[ext_resource type="PackedScene" uid="uid://uyffdt007yx7" path="res://Scenes/Tilemaps/tile_map_1.tscn" id="2_scutj"]
+[ext_resource type="PackedScene" uid="uid://cvr4nkntysayk" path="res://Player/Player_Samurai.tscn" id="3_ha87r"]
+[ext_resource type="PackedScene" uid="uid://bbnd8c254nlwy" path="res://Interactable/chest.tscn" id="3_pvqhr"]
+[ext_resource type="PackedScene" uid="uid://dur1gc7atkjdp" path="res://Enemies/Fighter/Fighter.tscn" id="4_vtksh"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_6mwop"]
+script/source = "using Godot;
+using System;
+
+public partial class startMenu : Control
+{
+    // Declare any necessary variables and UI elements here
+
+    public override void _Ready()
+    {
+        // Initialize the start menu UI and setup any necessary event listeners
+
+		// Example usage:
+		GetNode<Button>(\"StartButton\").Pressed += OnStartButtonPressed;
+		GetNode<Button>(\"QuitButton\").Pressed += OnQuitButtonPressed;
+    }
+
+    private void OnStartButtonPressed()
+    {
+        // Handle the start button press, for example, by transitioning to the game scene
+		GetTree().ChangeSceneToFile(\"res://game.tscn\");
+    }
+
+    private void OnQuitButtonPressed()
+    {
+        // Handle the quit button press, for example, by quitting the game
+		GetTree().Quit();
+    }
+}
+"
 
 [node name="main" type="Node2D"]
+script = SubResource("CSharpScript_6mwop")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="TileMap" parent="Level" instance=ExtResource("2_scutj")]
+
+[node name="Chest" parent="Level" instance=ExtResource("3_pvqhr")]
+position = Vector2(783, 48)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_ha87r")]
+position = Vector2(51, -18)
+
+[node name="Fighter" parent="." instance=ExtResource("4_vtksh")]
+position = Vector2(557, -13)
