@@ -46,7 +46,7 @@ private bool isAttackingDistance = false;
             {
                 _animationNode.FlipH = true;
             }
-            _enemy.Velocity = direction * _enemy.Speed;
+            _enemy.Velocity = new Vector2(direction.X, 0) * _enemy.Speed;
             _enemy.MoveAndSlide();
         }
         else if (isAttackingDistance)
