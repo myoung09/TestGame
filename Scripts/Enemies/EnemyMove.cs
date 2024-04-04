@@ -5,8 +5,8 @@ using Godot;
 public class EnemyMove : EnemyState
 {
     private AnimatedSprite2D _animationNode;
-
-    public EnemyMove(Enemy enemy, EnemyStateMachine playerStateMachine) : base(enemy, playerStateMachine)
+private bool isAttackingDistance = false;
+    public EnemyMove(Enemy enemy, EnemyStateMachine playerStateMachine, Player player) : base(enemy, playerStateMachine, player)
     {
         _animationNode = enemy.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
@@ -22,29 +22,38 @@ public class EnemyMove : EnemyState
 
     public override void Update()
     {
+        var posDifference = _player.GlobalPosition - _enemy.GlobalPosition;
+        var isAttackingDistance = posDifference.Length() <= _enemy.AttackDistance;
+
+        if (isAttackingDistance) {
+            Debug.WriteLine("ATTACKING");
+        }
     }
 
     public override void PhysicsUpdate(double delta)
     {
-        if (_player is not null)
+        var posDifference = _player.GlobalPosition - _enemy.GlobalPosition;
+        var isFollowing = posDifference.Length() > _enemy.AttackDistance && posDifference.Length() < _enemy.SightDistance;
+
+        if (isFollowing)
         {
-            var direction = (_player.GlobalPosition - _enemy.GlobalPosition).Normalized();
-            if (direction.Length() > _enemy.AttackDistance){
-                
-            if (direction.X > 0){
+            var direction = posDifference.Normalized();
+            if (direction.X > 0)
+            {
                 _animationNode.FlipH = false;
-            }else {
+            }
+            else
+            {
                 _animationNode.FlipH = true;
             }
             _enemy.Velocity = direction * _enemy.Speed;
-            }
-            
+            _enemy.MoveAndSlide();
         }
-        else
+        else if (isAttackingDistance)
         {
             _enemyStateMachine.ChangeState(nameof(EnemyIdle));
         }
-        _enemy.MoveAndSlide();
+
     }
 
 }

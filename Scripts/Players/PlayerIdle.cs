@@ -33,7 +33,6 @@ public class PlayerIdle : PlayerState
         }
         else if (Input.IsActionPressed("fire"))
         {
-            Debug.WriteLine("FIRE");
             _playerStateMachine.ChangeState(nameof(PlayerMedAttack));
         }
     }

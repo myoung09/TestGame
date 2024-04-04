@@ -10,19 +10,9 @@ public partial class EnemyFighter : Enemy
 
     public override void _Ready()
     {
-        _stateMachine = new EnemyStateMachine(this);
-        GetNode<Area2D>("InteractionBubble").BodyEntered += InteractiveArea_BodyEntered;
-        GetNode<Area2D>("InteractionBubble").BodyExited += InteractiveArea_BodyExited;
+        Player = (Player)GetTree().GetNodesInGroup("Player")[0];
+        _stateMachine = new EnemyStateMachine(this, Player);
 
-    }
-
-    private void InteractiveArea_BodyExited(Node2D body)
-    {
-        if (body is Player player)
-        {
-            Debug.WriteLine("Body exited: " + body);
-            _stateMachine.CurrentState.UnregisterPlayer(player);
-        }
     }
 
     public override void _Process(double delta)
@@ -41,15 +31,4 @@ public partial class EnemyFighter : Enemy
         _stateMachine.CurrentState.PhysicsUpdate(delta);
 
     }
-
-    private void InteractiveArea_BodyEntered(Node2D body)
-    {
-
-        if (body is Player player)
-        {
-            Debug.WriteLine("Body entered: " + body);
-            _stateMachine.CurrentState.RegisterPlayer(player);
-        }
-    }
-
 }

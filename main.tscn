@@ -43,11 +43,11 @@ script = SubResource("CSharpScript_6mwop")
 
 [node name="TileMap" parent="Level" instance=ExtResource("2_scutj")]
 
-[node name="Chest" parent="Level" instance=ExtResource("3_pvqhr")]
+[node name="Chest" parent="Level" groups=["Interactable"] instance=ExtResource("3_pvqhr")]
 position = Vector2(783, 48)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_ha87r")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("3_ha87r")]
 position = Vector2(51, -18)
 
-[node name="Fighter" parent="." instance=ExtResource("4_vtksh")]
+[node name="Fighter" parent="." groups=["Enemy"] instance=ExtResource("4_vtksh")]
 position = Vector2(557, -13)

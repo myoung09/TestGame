@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-    public float Speed {get; protected set;} = 200.0f;
+    public float Speed {get; protected set;} = 300.0f;
     public float GravityMultiplier {get; protected set;} = 1f;
     public float PlayerSpeedMultiplier {get; protected set;} = .75f;
     public float JumpSpeed {get; protected set;} = -500f;

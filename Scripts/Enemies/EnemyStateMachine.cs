@@ -20,11 +20,11 @@ public class EnemyStateMachine
 
 
     //initialize
-    public EnemyStateMachine(Enemy enemy)
+    public EnemyStateMachine(Enemy enemy, Player player)
     {
         _enemy = enemy;
-        _enemyIdle = new EnemyIdle(enemy, this);
-        _enemyMove = new EnemyMove(enemy, this);
+        _enemyIdle = new EnemyIdle(enemy, this, player);
+        _enemyMove = new EnemyMove(enemy, this, player);
 
         CurrentState = _enemyIdle;
         TransitionTable = new Stack<EnemyState>();

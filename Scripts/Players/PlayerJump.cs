@@ -51,7 +51,6 @@ public class PlayerJump : PlayerState
         {
             if (isMoving) {
                 _player.Velocity = new Vector2(_player.Speed * _player.PlayerSpeedMultiplier * PlayerStateMachine.Direction, _player.Velocity.Y);
-                Debug.WriteLine("Velocity: " + _player.Velocity);
             }
             _player.Velocity += new Vector2(0, gravity * gravityMultiplier * (float)delta);
             _player.MoveAndSlide();
