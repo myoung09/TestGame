@@ -7,11 +7,13 @@ using Godot;
 public class PlayerMedAttack : PlayerState
 {
 
-    private float delay = 300f;
+    private float delay = 500f;
     private static System.Timers.Timer _timer;
     private bool isAttacking = false;
+    private Enemy _currentEnemy;
+
     public PlayerMedAttack(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
-    {       
+    {
     }
     private void AddTimer()
     {
@@ -34,6 +36,7 @@ public class PlayerMedAttack : PlayerState
         _player.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("Samurai_Medium_Attack");
         isAttacking = true;
         _timer.Start();
+        _currentEnemy = _player.AggroedEnemy();
     }
 
     public override void Exit()
@@ -44,6 +47,7 @@ public class PlayerMedAttack : PlayerState
 
     public override void HandleInput()
     {
+        base.HandleInput();
         if (!isAttacking)
         {
             _playerStateMachine.ChangeState("previous");
@@ -54,7 +58,11 @@ public class PlayerMedAttack : PlayerState
     {
         if (isAttacking)
         {
-           //Todo: Add attack logic
+            
+           if (_currentEnemy != null)
+            {
+                _currentEnemy.Damage(_player.MediumAttackDamage);
+            }
         }
     }
 

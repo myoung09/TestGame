@@ -47,7 +47,7 @@ script = SubResource("CSharpScript_6mwop")
 position = Vector2(783, 48)
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_ha87r")]
-position = Vector2(51, -18)
+position = Vector2(62, -175)
 
 [node name="Fighter" parent="." groups=["Enemy"] instance=ExtResource("4_vtksh")]
 position = Vector2(557, -13)

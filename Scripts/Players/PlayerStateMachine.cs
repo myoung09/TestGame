@@ -20,6 +20,7 @@ public class PlayerStateMachine
     private PlayerJump _playerJump;
     private PlayerFalling _playerFalling;
     private PlayerMedAttack _playerMedAttack;
+    private PlayerDead _playerDead;
 
     //initialize
     public PlayerStateMachine(Player player)
@@ -30,6 +31,7 @@ public class PlayerStateMachine
         _playerJump = new PlayerJump(player, this);
         _playerFalling = new PlayerFalling(player, this);
         _playerMedAttack = new PlayerMedAttack(player, this);
+        _playerDead = new PlayerDead(player, this);
         CurrentState = _playerIdle;
         TransitionTable = new Stack<PlayerState>();
         TransitionTable.Push(CurrentState);
@@ -67,6 +69,8 @@ public class PlayerStateMachine
                 return _playerFalling;
             case nameof(PlayerMedAttack):
                 return _playerMedAttack;
+            case nameof(PlayerDead):
+                return _playerDead;
             default:
                 return _playerIdle;
         }

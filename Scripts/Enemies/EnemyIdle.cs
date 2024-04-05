@@ -21,9 +21,4 @@ public class EnemyIdle : EnemyState
             _enemyStateMachine.ChangeState(nameof(EnemyMove));
         }
     }
-    public override void RegisterPlayer(Player player)
-    {
-            base.RegisterPlayer(player);
-            
-    }
 }

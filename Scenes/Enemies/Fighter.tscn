@@ -1,8 +1,38 @@
-[gd_scene load_steps=21 format=3 uid="uid://dur1gc7atkjdp"]
+[gd_scene load_steps=29 format=3 uid="uid://dur1gc7atkjdp"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Fighter/EnemyFighter.cs" id="1_jms6s"]
 [ext_resource type="Texture2D" uid="uid://bjx0chcdamhtg" path="res://Assets/sprites/Fighter/Idle.png" id="1_tt7dk"]
+[ext_resource type="Texture2D" uid="uid://bcap7yjifgnrc" path="res://Assets/sprites/Fighter/Attack_1.png" id="2_3tvej"]
 [ext_resource type="Texture2D" uid="uid://crrktlkkjduxa" path="res://Assets/sprites/Fighter/Walk.png" id="2_h2mgx"]
+[ext_resource type="Texture2D" uid="uid://lhu2ev4me0t1" path="res://Assets/sprites/Fighter/Dead.png" id="3_gj4rg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72x8v"]
+atlas = ExtResource("2_3tvej")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot5mq"]
+atlas = ExtResource("2_3tvej")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn8om"]
+atlas = ExtResource("2_3tvej")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32b6x"]
+atlas = ExtResource("2_3tvej")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ji26p"]
+atlas = ExtResource("3_gj4rg")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7ore"]
+atlas = ExtResource("3_gj4rg")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unq2k"]
+atlas = ExtResource("3_gj4rg")
+region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8ifq"]
 atlas = ExtResource("1_tt7dk")
@@ -63,6 +93,37 @@ region = Rect2(896, 0, 128, 128)
 [sub_resource type="SpriteFrames" id="SpriteFrames_j2wsl"]
 animations = [{
 "frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_72x8v")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ot5mq")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_kn8om")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_32b6x")
+}],
+"loop": true,
+"name": &"Enemy_Attack",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ji26p")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_d7ore")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_unq2k")
+}],
+"loop": false,
+"name": &"Enemy_Death",
+"speed": 8.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e8ifq")
 }, {
@@ -112,29 +173,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"Enemy_Move",
-"speed": 5.0
+"speed": 9.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4uju4"]
 radius = 15.0
 height = 82.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_su3rj"]
-radius = 257.0
-
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_jms6s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j2wsl")
-animation = &"Enemy_Idle"
-frame_progress = 0.929269
+animation = &"Enemy_Death"
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 25)
 shape = SubResource("CapsuleShape2D_4uju4")
-
-[node name="InteractionBubble" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionBubble"]
-shape = SubResource("CircleShape2D_su3rj")

@@ -23,9 +23,11 @@ public class PlayerJump : PlayerState
 
     public override void Exit()
     {
+        isMoving = false;
     }
     public override void HandleInput()
     {
+        base.HandleInput();
         if (isFalling)
         {
             _playerStateMachine.ChangeState(nameof(PlayerFalling));

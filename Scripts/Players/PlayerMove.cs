@@ -18,6 +18,7 @@ public class PlayerMove : PlayerState
 
     public override void HandleInput()
     {
+        base.HandleInput();
         if (!_player.IsOnFloor())
         {
             _playerStateMachine.ChangeState(nameof(PlayerFalling));

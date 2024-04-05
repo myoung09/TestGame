@@ -17,10 +17,12 @@ public class PlayerFalling : PlayerState
 
     public override void Exit()
     {
+        isMoving = false;
     }
 
     public override void HandleInput()
     {
+        base.HandleInput();
         if (_player.IsOnFloor())
         {
             _playerStateMachine.ChangeState(nameof(PlayerIdle));

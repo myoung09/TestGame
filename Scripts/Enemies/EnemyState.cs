@@ -13,15 +13,17 @@ public abstract class EnemyState
     }
     public virtual void Enter(EnemyState previousState) { }
     public virtual void Exit() { }
-    public virtual void PhysicsUpdate(double delta) { }
+    public virtual void PhysicsUpdate(double delta)
+    {
+        if (_player.IsDead)
+        {
+            _enemyStateMachine.ChangeState(nameof(EnemyIdle));
+        }
+        else if ( _enemy.Health <= 0) 
+        {
+            _enemyStateMachine.ChangeState(nameof(EnemyDeath));
+        }
+    }
     public virtual void Update() { }
-    public virtual void RegisterPlayer(Player player)
-    {
-        
-    }
-    public virtual void UnregisterPlayer(Player player)
-    {
-        
-    }
 
 }

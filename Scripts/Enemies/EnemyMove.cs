@@ -12,7 +12,7 @@ private bool isAttackingDistance = false;
     }
     public override void Enter(EnemyState previousState)
     {
-        _animationNode.Play("Enemy_Moving");
+        _animationNode.Play("Enemy_Move");
 
     }
     public override void Exit()
@@ -26,7 +26,7 @@ private bool isAttackingDistance = false;
         var isAttackingDistance = posDifference.Length() <= _enemy.AttackDistance;
 
         if (isAttackingDistance) {
-            Debug.WriteLine("ATTACKING");
+            _enemyStateMachine.ChangeState(nameof(EnemyAttack));
         }
     }
 
