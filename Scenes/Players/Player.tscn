@@ -298,7 +298,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ms101")
 }],
-"loop": true,
+"loop": false,
 "name": &"Samurai_Medium_Attack",
 "speed": 8.0
 }, {
@@ -361,6 +361,8 @@ script = ExtResource("1_qiu4m")
 sprite_frames = SubResource("SpriteFrames_ov6k0")
 animation = &"Samurai_Medium_Attack"
 autoplay = "Samurai_Idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 23)

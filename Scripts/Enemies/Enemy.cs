@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 
 public delegate void EnemyDeathHandler(Enemy enemy);
@@ -19,6 +20,7 @@ public partial class Enemy : CharacterBody2D
     public void Damage(long amount)
     {
         Health = Math.Max(0, Health - amount);
+        Debug.WriteLine($"Enemy Health: {Health}");
         if (Health <= 0){
             EnemyDeath.Invoke(this);
         }

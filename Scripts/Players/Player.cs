@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
     public float AttackRange { get; set; } = 100f;
     public bool IsDead { get { return Health <= 0; } }
     public List<Node2D> VisibleObjects { get; set; } = new List<Node2D>();
-    public long MediumAttackDamage { get; protected set; } = 50;
+    public long MediumAttackDamage { get; protected set; } = 10;
 
     public void AddCoins(long amount)
     {

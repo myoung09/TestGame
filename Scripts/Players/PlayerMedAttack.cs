@@ -6,49 +6,45 @@ using Godot;
 
 public class PlayerMedAttack : PlayerState
 {
-
-    private float delay = 500f;
-    private static System.Timers.Timer _timer;
-    private bool isAttacking = false;
+    private AnimatedSprite2D attackAnimation;
+    private bool isAnimationComplete = false;
     private Enemy _currentEnemy;
 
     public PlayerMedAttack(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
+        attackAnimation = _player.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        attackAnimation.AnimationFinished += AnimationFinished;
     }
-    private void AddTimer()
+    private void AnimationFinished()
     {
-        if (_timer == null)
-        {
-            // Create the timer instance if it doesn't exist
-            _timer = new System.Timers.Timer();
-            _timer.Interval = delay;
-            _timer.Elapsed += TimerElapsed;
-        }
+        isAnimationComplete = true;
     }
 
     private void TimerElapsed(object sender, ElapsedEventArgs e)
     {
-        isAttacking = false;
+        isAnimationComplete = true;
     }
     public override void Enter(PlayerState previousState)
     {
-        AddTimer();
-        _player.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("Samurai_Medium_Attack");
-        isAttacking = true;
-        _timer.Start();
+        isAnimationComplete = false;
+        attackAnimation.Play("Samurai_Medium_Attack");
         _currentEnemy = _player.AggroedEnemy();
+
+        if (_currentEnemy != null)
+        {
+            _currentEnemy.Damage(_player.MediumAttackDamage);
+
+        }
     }
 
     public override void Exit()
     {
-        isAttacking = false;
-        _timer.Stop();
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
-        if (!isAttacking)
+        if (isAnimationComplete)
         {
             _playerStateMachine.ChangeState("previous");
         }
@@ -56,14 +52,6 @@ public class PlayerMedAttack : PlayerState
 
     public override void PhysicsUpdate(double delta)
     {
-        if (isAttacking)
-        {
-            
-           if (_currentEnemy != null)
-            {
-                _currentEnemy.Damage(_player.MediumAttackDamage);
-            }
-        }
     }
 
     public override void Update()
