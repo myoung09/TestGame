@@ -13,7 +13,7 @@ public partial class Enemy : CharacterBody2D
     public float PlayerSpeedMultiplier { get; protected set; } = .75f;
     public float JumpSpeed { get; protected set; } = -500f;
     public float AttackDistance { get; protected set; } = 50f;
-    public float SightDistance { get; protected set; } = 0f;
+    public float SightDistance { get; protected set; } = 300f;
     public virtual int DamageAmount { get; set; } = 10;
     protected Player Player { get; set; }
 
